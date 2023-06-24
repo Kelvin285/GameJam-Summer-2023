@@ -42,6 +42,10 @@
               "target": "Package",
               "version": "[2.3.0, )"
             },
+            "DotnetNoise": {
+              "target": "Package",
+              "version": "[1.0.0, )"
+            },
             "OpenTK": {
               "target": "Package",
               "version": "[5.0.0-pre.8, )"

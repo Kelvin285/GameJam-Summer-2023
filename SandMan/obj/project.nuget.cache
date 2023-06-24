@@ -1,10 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "5aJPeNgtA6JkcJHyrQamnUmOdeLwGOD6AT6qi4M1YpGDUngM0WwPNF9vuUrZcUN8SwV7u3ZUCRGZRo+9Owc9iQ==",
+  "dgSpecHash": "cqeVtgD5mhw2UpzLitfKDK1HbqpDl9SwwX3FqrrF5nRDE8Yh56EKmBTdICHf2FXKFXpH90667imxfdlAf/PvnQ==",
   "success": true,
   "projectFilePath": "/home/boole/Documents/projects/games/GameJam-Summer-2023/SandMan/SandMan.csproj",
   "expectedPackageFiles": [
     "/home/boole/.nuget/packages/box2d/2.3.0/box2d.2.3.0.nupkg.sha512",
+    "/home/boole/.nuget/packages/dotnetnoise/1.0.0/dotnetnoise.1.0.0.nupkg.sha512",
     "/home/boole/.nuget/packages/opentk/5.0.0-pre.8/opentk.5.0.0-pre.8.nupkg.sha512",
     "/home/boole/.nuget/packages/opentk.compute/5.0.0-pre.8/opentk.compute.5.0.0-pre.8.nupkg.sha512",
     "/home/boole/.nuget/packages/opentk.core/5.0.0-pre.8/opentk.core.5.0.0-pre.8.nupkg.sha512",

@@ -9,6 +9,7 @@
       "SandMan/1.0.0": {
         "dependencies": {
           "Box2D": "2.3.0",
+          "DotnetNoise": "1.0.0",
           "OpenTK": "5.0.0-pre.8",
           "SixLabors.ImageSharp": "3.0.1"
         },
@@ -17,6 +18,14 @@
         }
       },
       "Box2D/2.3.0": {},
+      "DotnetNoise/1.0.0": {
+        "runtime": {
+          "lib/netstandard2.0/DotnetNoise.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
       "OpenTK/5.0.0-pre.8": {
         "dependencies": {
           "OpenTK.Compute": "5.0.0-pre.8",
@@ -179,6 +188,13 @@
       "sha512": "sha512-Ac6y7onmMdbi6AXHyS63TbEawjCxJtxEjE3iclYNNqHvY6Iw6LGULnEv+rHOwhpJTUytDU89bZgj/AGhGS2ZMg==",
       "path": "box2d/2.3.0",
       "hashPath": "box2d.2.3.0.nupkg.sha512"
+    },
+    "DotnetNoise/1.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-GdEL8YZXceS39AsanUUwZCX/lRseX26xhbQIhB0/+yz4+rx8eWy+0vkP6isPuAecEvd0PVkXO4peNRW0wMlzhg==",
+      "path": "dotnetnoise/1.0.0",
+      "hashPath": "dotnetnoise.1.0.0.nupkg.sha512"
     },
     "OpenTK/5.0.0-pre.8": {
       "type": "package",

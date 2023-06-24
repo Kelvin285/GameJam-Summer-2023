@@ -5,6 +5,15 @@
       "Box2D/2.3.0": {
         "type": "package"
       },
+      "DotnetNoise/1.0.0": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.0/DotnetNoise.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/DotnetNoise.dll": {}
+        }
+      },
       "OpenTK/5.0.0-pre.8": {
         "type": "package",
         "dependencies": {
@@ -600,6 +609,19 @@
         "src/native/premake4.lua"
       ]
     },
+    "DotnetNoise/1.0.0": {
+      "sha512": "GdEL8YZXceS39AsanUUwZCX/lRseX26xhbQIhB0/+yz4+rx8eWy+0vkP6isPuAecEvd0PVkXO4peNRW0wMlzhg==",
+      "type": "package",
+      "path": "dotnetnoise/1.0.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE",
+        "dotnetnoise.1.0.0.nupkg.sha512",
+        "dotnetnoise.nuspec",
+        "lib/netstandard2.0/DotnetNoise.dll"
+      ]
+    },
     "OpenTK/5.0.0-pre.8": {
       "sha512": "jbKsrfkS0Y5nANb/F4/iityL47Ym97YWBX/Po+tqReVEhWUH6DHIKmiVuP+Wz9gyRAzJQlhK2BJDtAXHcq3iIw==",
       "type": "package",
@@ -807,6 +829,7 @@
   "projectFileDependencyGroups": {
     "net7.0": [
       "Box2D >= 2.3.0",
+      "DotnetNoise >= 1.0.0",
       "OpenTK >= 5.0.0-pre.8",
       "SixLabors.ImageSharp >= 3.0.1"
     ]
@@ -851,6 +874,10 @@
           "Box2D": {
             "target": "Package",
             "version": "[2.3.0, )"
+          },
+          "DotnetNoise": {
+            "target": "Package",
+            "version": "[1.0.0, )"
           },
           "OpenTK": {
             "target": "Package",
