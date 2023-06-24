@@ -17,6 +17,9 @@ uniform vec2 camera;
 uniform vec2 screen_size;
 
 uniform mat4 projection;
+uniform mat4 model;
+
+uniform int centered;
 
 
 out vec2 uv;
@@ -26,7 +29,7 @@ void main() {
     
     uv = vertex;
     
-    vec2 pos = vertex * size + position - camera;
+    vec2 pos = (model * vec4((vertex - 0.5f) * size, 0, 1)).xy + float(1 - centered) * (size * 0.5f) + position - camera;
     
     gl_Position = projection * vec4(pos, 0, 1);
 }

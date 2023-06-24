@@ -55,6 +55,11 @@ public unsafe class Shader
         GL.DeleteShader(frag);
     }
 
+    public void SetUniform(string name, bool value)
+    {
+        GL.Uniform1i(GL.GetUniformLocation(program, name), value ? 1 : 0);
+    }
+    
     public void SetUniform(string name, int value)
     {
         GL.Uniform1i(GL.GetUniformLocation(program, name), value);

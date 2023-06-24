@@ -39,6 +39,7 @@ public class Game : GameWindow
         vao = GL.CreateVertexArray();
     }
 
+    private float rotation = 0;
     protected override void OnRenderFrame(FrameEventArgs args)
     {
         camera.Update(Size);
@@ -59,18 +60,26 @@ public class Game : GameWindow
         
         //world.render();
         //player.render();
+
+        rotation++;
+        DrawTexture(texture, new(), Size, rotation, true);
         
+        
+        DrawTexture(texture, new(), Size / 4, rotation * 2, true);
         
         SwapBuffers();
 
     }
     
-    public static void DrawTexture(Texture texture, Vector2 position, Vector2 size)
+    public static void DrawTexture(Texture texture, Vector2 position, Vector2 size, float rotation = 0, bool centered = false)
     {
+        
         Game game = Game.INSTANCE;
         texture.Bind();
         game.render_shader.SetUniform("position", position);
         game.render_shader.SetUniform("size", size);
+        game.render_shader.SetUniform("model", Matrix4.CreateRotationZ(MathHelper.DegreesToRadians(rotation)));
+        game.render_shader.SetUniform("centered", centered);
         GL.BindVertexArray(game.vao);
         GL.DrawArrays(PrimitiveType.Triangles, 0, 6);
     }
