@@ -19,7 +19,7 @@ public class Game : GameWindow
 
     public static Game INSTANCE;
 
-    private LevelGeneration world;
+    private World world;
     
     public Game(GameWindowSettings gameWindowSettings, NativeWindowSettings nativeWindowSettings) : base(gameWindowSettings, nativeWindowSettings)
     {
@@ -34,7 +34,7 @@ public class Game : GameWindow
 
     public void Init()
     {
-        world = new LevelGeneration();
+        world = new World();
         
         render_shader = new Shader("assets/shaders/render_vert.glsl", "assets/shaders/render_frag.glsl");
 
@@ -72,7 +72,7 @@ public class Game : GameWindow
     public static void DrawTexture(Texture texture, Vector2 position, Vector2 size, float rotation = 0, bool centered = false)
     {
         
-        Game game = Game.INSTANCE;
+        Game game = INSTANCE;
         texture.Bind();
         game.render_shader.SetUniform("position", position);
         game.render_shader.SetUniform("size", size);

@@ -30,8 +30,8 @@ public class Texture
         Image<Rgba32> image = Image.Load<Rgba32>(path);
         image.Mutate(x => x.Flip(FlipMode.Vertical));
 
-        this.width = image.Width;
-        this.height = image.Height;
+        width = image.Width;
+        height = image.Height;
         
         var pixels = new List<Vector4>(image.Width * image.Height);
 

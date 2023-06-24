@@ -30,7 +30,7 @@ public class Chunk
     
     public Block GetBlock(int x, int y)
     {
-        return BlockRegistry.blocks[y * 128 + x];
+        return BlockRegistry.blocks[blocks[y * 128 + x]];
     }
 
     public void Render()

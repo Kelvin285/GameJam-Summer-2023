@@ -5,12 +5,12 @@ using SandMan.rendering;
 
 namespace SandMan.game;
 
-public class LevelGeneration
+public class World
 {
     public Chunk[] chunks;
     private FastNoise noise;
 
-    public LevelGeneration()
+    public World()
     {
         chunks = new Chunk[64*8];
         noise = new FastNoise();
@@ -30,15 +30,14 @@ public class LevelGeneration
         {
             for (int y = 0; y < 64*128; y++)
             {
-                float noise = this.noise.GetPerlin(x, y);
-                noise += y * 0.01f;
-                if (noise < 0f)
+                float pixelNoise = this.noise.GetPerlin(x, y);
+                pixelNoise += y * 0.01f;
+                if (pixelNoise < 0f)
                 {
                     SetBlock(x, y, BlockRegistry.sand);
                 }
             }
         }
-        
     }
     
     public Chunk GetChunk(int x, int y)
@@ -51,7 +50,7 @@ public class LevelGeneration
     public void SetBlock(int x, int y, Block block)
     {
         x &= 8191;
-        y &= 8191;
+        y &= 1023;
         int chunkX = x / 128;
         int chunkY = y / 128;
         chunks[chunkX + chunkY * 64].SetBlock(x  & 127, y & 127, block);
@@ -60,7 +59,7 @@ public class LevelGeneration
     public Block GetBlock(int x, int y)
     {
         x &= 8191;
-        y &= 8191;
+        y &= 1023;
         int chunkX = x / 128;
         int chunkY = y / 128;
         return chunks[chunkX + chunkY * 64].GetBlock(x & 127, y & 127);
@@ -72,9 +71,9 @@ public class LevelGeneration
         Camera camera = Game.INSTANCE.camera;
         int cameraX = (int)MathF.Floor(camera.position.X/128);
         int cameraY = (int)MathF.Floor(camera.position.Y/128);
-        for (int x = cameraX - 3; x < cameraX + 3; x++)
+        for (int x = cameraX - 8; x < cameraX + 8; x++)
         {
-            for (int y = cameraX - 3; y < cameraY + 3; y++)
+            for (int y = cameraX - 4; y < cameraY + 4; y++)
             {
                 GetChunk(x, y).Render();
             }
