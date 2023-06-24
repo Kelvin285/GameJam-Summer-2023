@@ -28,3 +28,4 @@
 /home/kevin/Desktop/coding/voxel engine/SandMan/SandMan/obj/Debug/net7.0/SandMan.pdb
 /home/kevin/Desktop/coding/voxel engine/SandMan/SandMan/obj/Debug/net7.0/SandMan.genruntimeconfig.cache
 /home/kevin/Desktop/coding/voxel engine/SandMan/SandMan/obj/Debug/net7.0/ref/SandMan.dll
+/home/kevin/Desktop/coding/voxel engine/SandMan/SandMan/bin/Debug/net7.0/SixLabors.ImageSharp.dll

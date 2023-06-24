@@ -1,5 +1,6 @@
 using OpenTK.Graphics;
-using OpenTK.Graphics.OpenGL.Compatibility;
+using OpenTK.Graphics.OpenGL;
+using OpenTK.Mathematics;
 
 namespace SandMan;
 
@@ -54,6 +55,36 @@ public unsafe class Shader
         GL.DeleteShader(frag);
     }
 
+    public void SetUniform(string name, int value)
+    {
+        GL.Uniform1i(GL.GetUniformLocation(program, name), value);
+    }
+    
+    public void SetUniform(string name, float value)
+    {
+        GL.Uniform1f(GL.GetUniformLocation(program, name), value);
+    }
+    
+    public void SetUniform(string name, Vector2 value)
+    {
+        GL.Uniform2f(GL.GetUniformLocation(program, name), value);
+    }
+    
+    public void SetUniform(string name, Vector3 value)
+    {
+        GL.Uniform3f(GL.GetUniformLocation(program, name), value);
+    }
+    
+    public void SetUniform(string name, Vector4 value)
+    {
+        GL.Uniform4f(GL.GetUniformLocation(program, name), value);
+    }
+    
+    public void SetUniform(string name, Matrix4 value)
+    {
+        GL.UniformMatrix4f(GL.GetUniformLocation(program, name), false, value);
+    }
+    
     public void Use()
     {
         GL.UseProgram(program);
