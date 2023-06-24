@@ -7,12 +7,11 @@ namespace SandMan.game;
 
 public class World
 {
-    public Chunk[] chunks;
+    public List<Chunk> chunks = new List<Chunk>();
     private FastNoise noise;
 
     public World()
     {
-        chunks = new Chunk[64*8];
         noise = new FastNoise();
         GenerateLevel();
     }
@@ -23,21 +22,24 @@ public class World
         {
             for (int y = 0; y < 8; y++)
             {
-                chunks[x + y * 64] = new Chunk(x, y);
+                chunks.Add(new Chunk(x, y));
             }
         }
-        for (int x = 0; x < 64*128; x++)
+        Console.WriteLine("START GENERATING!");
+        //64x8
+        for (int x = 0; x < 128 * 64; x++)
         {
-            for (int y = 0; y < 64*128; y++)
+            for (int y = 0; y < 128 * 8; y++)
             {
-                float pixelNoise = this.noise.GetPerlin(x, y);
-                pixelNoise += y * 0.01f;
-                if (pixelNoise < 0f)
+                float noise = this.noise.GetPerlin(x, y);
+                //noise += y * 0.01f;
+                if (y < x)
                 {
                     SetBlock(x, y, BlockRegistry.sand);
                 }
             }
         }
+        Console.WriteLine("GENERATED!");
     }
     
     public Chunk GetChunk(int x, int y)
@@ -49,11 +51,9 @@ public class World
 
     public void SetBlock(int x, int y, Block block)
     {
-        x &= 8191;
-        y &= 1023;
         int chunkX = x / 128;
         int chunkY = y / 128;
-        chunks[chunkX + chunkY * 64].SetBlock(x  & 127, y & 127, block);
+        chunks[chunkX + chunkY * 64].SetBlock(x & 127, y & 127, block);
     }
 
     public Block GetBlock(int x, int y)
@@ -71,9 +71,10 @@ public class World
         Camera camera = Game.INSTANCE.camera;
         int cameraX = (int)MathF.Floor(camera.position.X/128);
         int cameraY = (int)MathF.Floor(camera.position.Y/128);
-        for (int x = cameraX - 8; x < cameraX + 8; x++)
+        
+        for (int x = cameraX - 3; x < cameraX + 3; x++)
         {
-            for (int y = cameraX - 4; y < cameraY + 4; y++)
+            for (int y = cameraY - 3; y < cameraY + 3; y++)
             {
                 GetChunk(x, y).Render();
             }

@@ -8,7 +8,7 @@ public class Texture
 {
     public TextureHandle texture;
 
-    public Vector4[] pixels;
+    public List<Vector4> pixels;
     public int width, height;
     
     
@@ -16,8 +16,13 @@ public class Texture
     {
         this.width = width;
         this.height = height;
-        pixels = new Vector4[width * height];
-        Array.Fill(pixels, color);
+        pixels = new List<Vector4>();
+        for (int i = 0; i < width * height; i++)
+        {
+            pixels.Add(color);
+        }
+        
+        texture = GL.GenTexture();
         
         GL.BindTexture(TextureTarget.Texture2d, texture);
         GL.TexImage2D(TextureTarget.Texture2d, 0, InternalFormat.Rgba32f, width, height, 0, PixelFormat.Rgba, PixelType.Float, pixels.ToArray());
@@ -48,8 +53,7 @@ public class Texture
             };
             image.ProcessPixelRows(action);
         }
-
-        this.pixels = pixels.ToArray();
+        this.pixels = pixels;
         
         GL.BindTexture(TextureTarget.Texture2d, texture);
         GL.TexImage2D(TextureTarget.Texture2d, 0, InternalFormat.Rgba32f, image.Width, image.Height, 0, PixelFormat.Rgba, PixelType.Float, pixels.ToArray());

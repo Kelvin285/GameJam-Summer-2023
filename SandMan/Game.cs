@@ -71,8 +71,7 @@ public class Game : GameWindow
     
     public static void DrawTexture(Texture texture, Vector2 position, Vector2 size, float rotation = 0, bool centered = false)
     {
-        
-        Game game = INSTANCE;
+        Game game = Game.INSTANCE;
         texture.Bind();
         game.render_shader.SetUniform("position", position);
         game.render_shader.SetUniform("size", size);
