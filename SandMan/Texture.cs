@@ -20,7 +20,7 @@ public class Texture
 
         var pixels = new List<byte>(4 * image.Width * image.Height);
 
-
+        
         for (int y = 0; y < image.Height; y++)
         {
             PixelAccessorAction<Rgba32> action = (accessor) =>
