@@ -2,6 +2,7 @@ using OpenTK.Graphics;
 using OpenTK.Graphics.OpenGL;
 using OpenTK.Windowing.Common;
 using OpenTK.Windowing.Desktop;
+using SandMan.rendering;
 
 namespace SandMan;
 

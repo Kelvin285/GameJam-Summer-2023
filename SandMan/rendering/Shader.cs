@@ -2,7 +2,7 @@ using OpenTK.Graphics;
 using OpenTK.Graphics.OpenGL;
 using OpenTK.Mathematics;
 
-namespace SandMan;
+namespace SandMan.rendering;
 
 public unsafe class Shader
 {
