@@ -55,7 +55,11 @@ public class Game : GameWindow
         render_shader.SetUniform("camera", camera.position);
         render_shader.SetUniform("projection", camera.projection);
         
-        DrawTexture(texture, Vector2.Zero, Size);
+        //Render Functions Go Here
+        
+        //world.render();
+        //player.render();
+        
         
         SwapBuffers();
 
