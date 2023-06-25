@@ -228,7 +228,7 @@ public class BlockWorld
                 {
                     float rad = MathF.Sqrt((x - searchSize / 2.0f) * (x - searchSize / 2.0f) +
                                         (y - searchSize / 2.0f) * (y - searchSize / 2.0f));
-                    if (rad >= searchSize / 2.0f)
+                    if (rad > searchSize / 2.0f)
                     {
                         continue;
                     }
