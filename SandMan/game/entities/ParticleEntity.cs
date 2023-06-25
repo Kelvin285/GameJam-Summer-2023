@@ -49,8 +49,8 @@ public class ParticleEntity : Entity
     {
         base.Render();
 
-        width += 0.02f;
-        height += 0.02f;
+        width -= 0.1f;
+        height -= 0.1f;
 
         for (int i = 0; i < count; i++)
         {
