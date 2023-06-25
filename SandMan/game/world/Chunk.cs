@@ -20,8 +20,24 @@ public class Chunk
 
     public BlockWorld world;
 
+    public class UpdateRect
+    {
+        public int x1;
+        public int y1;
+        public int x2;
+        public int y2;
+    };
+
+    public int update_timer = 0;
+
+    public UpdateRect updateRect = new UpdateRect();
+
     public Chunk(BlockWorld world, int x, int y)
     {
+        updateRect.x1 = 500;
+        updateRect.y1 = 500;
+        updateRect.x2 = -500;
+        updateRect.y2 = -500;
         this.world = world;
         chunkTexture = new Texture(128, 128, new Vector4(0f, 0f, 0f, 0f));
         for (int i = 0; i < 128 * 128; i++)
@@ -41,12 +57,75 @@ public class Chunk
         blocks[(x & 127) + (y & 127) * 128] = block.id;
         chunkTexture.SetPixel(x & 127, y & 127, block.GetColor(x, y));
     }
+
+    public void MarkForUpdate(int x, int y)
+    {
+        x &= 127;
+        y &= 127;
+        if (x > updateRect.x2)
+        {
+            updateRect.x2 = x + 1;
+            if (updateRect.x2 > 127) updateRect.x2 = 127;
+        }
+
+        if (x < updateRect.x1)
+        {
+            updateRect.x1 = x - 1;
+            if (updateRect.x1 < 0) updateRect.x1 = 0;
+        }
+            
+        if (y > updateRect.y2)
+        {
+            updateRect.y2 = y + 1;
+            if (updateRect.y2 > 127) updateRect.y2 = 127;
+        }
+
+        if (y < updateRect.y1)
+        {
+            updateRect.y1 = y - 1;
+            if (updateRect.y1 < 0) updateRect.y1 = 0;
+        }
+        
+        update_timer = 1;
+    }
     
     public Block GetBlock(int x, int y)
     {
         return BlockRegistry.blocks[blocks[(x & 127) + (y & 127) * 128]];
     }
 
+    public void Update()
+    {
+        if (update_timer > 0)
+        {
+            int updates = 0;
+            for (int x = updateRect.x1; x <= updateRect.x2; x++)
+            {
+                for (int y = updateRect.y1; y <= updateRect.y2; y++)
+                {
+                    var block = GetBlock(x, y);
+                    if (block.Update(x + this.x * 128, y + this.y * 128, world))
+                    {
+                        updates++;
+                    }
+                }
+            }
+
+            if (updates == 0)
+            {
+                update_timer--;
+            }
+        }
+        else
+        {
+            
+            updateRect.x1 = 500;
+            updateRect.y1 = 500;
+            updateRect.x2 = -500;
+            updateRect.y2 = -500;
+        }
+    }
+    
     public void Render()
     {
         if (updated)

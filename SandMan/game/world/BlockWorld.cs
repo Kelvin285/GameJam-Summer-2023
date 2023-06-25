@@ -17,6 +17,10 @@ public class BlockWorld
     public Player player;
     public List<Entity> entities = new List<Entity>();
 
+    public bool generated = false;
+
+    public Random random = new Random();
+
     public BlockWorld()
     {
         physicsWorld = new World();
@@ -27,10 +31,12 @@ public class BlockWorld
         player = new Player(this, Vector2.Zero);
 
         player.position.X = 4096;
+        player.position.Y = 4096;
         
         entities.Add(player);
         
         GenerateLevel();
+        generated = true;
     }
 
     public void GenerateLevel()
@@ -60,23 +66,22 @@ public class BlockWorld
                 }
             }
             Console.WriteLine(str);
-            
-            float noise = this.noise.GetSimplexFractal(x * 0.2f, 0);
 
-            float height = noise * 128 + 512;
-            
+
+            float height = this.noise.GetSimplexFractal(x * 0.1f, 0) * 256;
             for (int y = 0; y < 128 * 64; y++)
             {
-                if (y < (int)height)
+                float noise = this.noise.GetSimplexFractal(x * 0.25f, y * 0.25f);
+
+                noise += (y + height - 512) / 128.0f;
+
+                if (y < 512)
+                {
+                    SetBlock(x, y, BlockRegistry.water);
+                }
+                if (noise < 0)
                 {
                     SetBlock(x, y, BlockRegistry.sand);
-                    if (x == 4096)
-                    {
-                        if (y == (int)height - 1)
-                        {
-                            player.position.Y = y + 128;
-                        }
-                    }
                 }
             }
         }
@@ -84,15 +89,14 @@ public class BlockWorld
         // lake generation
         Random random = new Random();
         
-        for (int i = 0; i < 1000; i++)
+        for (int x = 0; x < 8192; x++)
         {
-            int x = random.Next(8192);
-            int y = random.Next(384) + 384;
+            int y = random.Next(512 - 384, 512 + 384);
 
             int start_x = -1;
             int end_x = -1;
             int start_y = -1;
-            for (int w = x; w > x - 128; w--)
+            for (int w = x; w > x - 512; w--)
             {
                 if (GetBlock(w, y).solid)
                 {
@@ -100,7 +104,7 @@ public class BlockWorld
                 }
             }
             
-            for (int w = x; w < x + 128; w++)
+            for (int w = x; w < x + 512; w++)
             {
                 if (GetBlock(w, y).solid)
                 {
@@ -108,7 +112,7 @@ public class BlockWorld
                 }
             }
 
-            for (int h = y; h > y - 64; h--)
+            for (int h = y; h > y - 256; h--)
             {
                 if (GetBlock(x, h).solid)
                 {
@@ -126,11 +130,22 @@ public class BlockWorld
             {
                 int index = w - start_x;
                 
-                for (int h = y; h > y - 64; h--)
+                for (int h = y; h > y - 256; h--)
                 {
                     if (GetBlock(w, h).solid)
                     {
                         depth[index] = h;
+                        break;
+                    }
+                }
+            }
+
+            for (int d = 0; d < depth.Length; d++)
+            {
+                if (d > 0)
+                {
+                    if (Math.Abs(depth[d] - depth[d - 1]) >= 10)
+                    {
                         break;
                     }
                 }
@@ -142,7 +157,7 @@ public class BlockWorld
                 
                 for (int w = start_x; w < end_x; w++)
                 {
-                    for (int h = start_y; h < y; h++)
+                    for (int h = depth[w - start_x]; h < y; h++)
                     {
                         if (GetBlock(w, h) == BlockRegistry.air)
                         {
@@ -152,6 +167,10 @@ public class BlockWorld
                 }
             }
         }
+
+        generated = true;
+        entities.Add(new Enemy(this));
+        
     }
     
     public Chunk GetChunk(int x, int y)
@@ -167,7 +186,28 @@ public class BlockWorld
         y &= 8191;
         int chunkX = x / 128;
         int chunkY = y / 128;
-        chunks[chunkX + chunkY * 64].SetBlock(x, y, block);
+        Chunk chunk = GetChunk(chunkX, chunkY);
+        chunk.SetBlock(x, y, block);
+        if (generated)
+        {
+            for (int i = -1; i <= 1; i++)
+            {
+                for (int j = -1; j <= 1; j++)
+                {
+                    MarkForUpdate(x + i, y + j);
+                }
+            }
+        }
+    }
+    
+    public void MarkForUpdate(int x, int y)
+    {
+        x &= 8191;
+        y &= 8191;
+        int chunkX = x / 128;
+        int chunkY = y / 128;
+        Chunk chunk = GetChunk(chunkX, chunkY);
+        chunk.MarkForUpdate(x, y);
     }
 
     public Block GetBlock(int x, int y)
@@ -200,6 +240,11 @@ public class BlockWorld
                 entities[i].Dispose();
                 entities.RemoveAt(i);
             }
+        }
+        
+        for (int i = 0; i < chunks.Length; i++)
+        {
+            chunks[i].Update();
         }
 
         physicsWorld.Step(1.0f / 60.0f, 6, 2);

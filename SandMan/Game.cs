@@ -23,7 +23,7 @@ public class Game : GameWindow
 
     public static Game INSTANCE;
 
-    private BlockWorld _blockWorld;
+    public BlockWorld world;
     
     public Game(GameWindowSettings gameWindowSettings, NativeWindowSettings nativeWindowSettings) : base(gameWindowSettings, nativeWindowSettings)
     {
@@ -38,8 +38,10 @@ public class Game : GameWindow
 
     public void Init()
     {
+        GL.Enable(EnableCap.Blend);
+        GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
         TextureRegistry.RegisterTextures();
-        _blockWorld = new BlockWorld();
+        world = new BlockWorld();
         
         render_shader = new Shader("assets/shaders/render_vert.glsl", "assets/shaders/render_frag.glsl");
 
@@ -67,7 +69,7 @@ public class Game : GameWindow
         
         //Render Functions Go Here
         render_shader.SetUniform("tex", 0);
-        _blockWorld.Render();
+        world.Render();
 
         SwapBuffers();
 
@@ -75,12 +77,18 @@ public class Game : GameWindow
     
     public static void DrawTexture(Texture texture, Vector2 position, Vector2 size, float rotation = 0, bool centered = false)
     {
+        DrawTexture(texture, position, size, new Vector4(0, 0, 1, 1), rotation, centered);
+    }
+    
+    public static void DrawTexture(Texture texture, Vector2 position, Vector2 size, Vector4 uv, float rotation = 0, bool centered = false)
+    {
         Game game = Game.INSTANCE;
         texture.Bind();
         game.render_shader.SetUniform("position", position);
         game.render_shader.SetUniform("size", size);
         game.render_shader.SetUniform("model", Matrix4.CreateRotationZ(MathHelper.DegreesToRadians(rotation)));
         game.render_shader.SetUniform("centered", centered);
+        game.render_shader.SetUniform("uv_coords", uv);
         GL.BindVertexArray(game.vao);
         GL.DrawArrays(PrimitiveType.Triangles, 0, 6);
     }
@@ -88,7 +96,7 @@ public class Game : GameWindow
     protected override void OnUpdateFrame(FrameEventArgs args)
     {
         base.OnUpdateFrame(args);
-        _blockWorld.Update();
+        world.Update();
     }
 
     protected override void Dispose(bool disposing)
@@ -97,7 +105,7 @@ public class Game : GameWindow
         
         
         render_shader.Dispose();
-        _blockWorld.Dispose();
+        world.Dispose();
         
         GL.DeleteVertexArray(vao);
         texture.Dispose();

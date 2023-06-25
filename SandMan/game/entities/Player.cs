@@ -23,7 +23,7 @@ public class Player : Entity
         float dist = float.MaxValue;
         Vector2 closest = new Vector2(position.X, position.Y);
         bool found = false;
-        for (int y = 0; y < position.Y + 128; y++)
+        for (int y = 0; y < 4096; y++)
         {
             int X = (int)position.X;
             int Y = y;
@@ -236,7 +236,7 @@ public class Player : Entity
                 float dist = float.MaxValue;
                 Vector2 closest = new Vector2(leg_move_point[i].X, leg_move_point[i].Y);
                 bool found = false;
-                for (int y = 0; y < pivot_point.Y + 128; y++)
+                for (int y = 0; y < 4096; y++)
                 {
                     int X = (int)leg_move_point[i].X;
                     int Y = y;

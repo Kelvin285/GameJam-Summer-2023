@@ -1,4 +1,5 @@
 using OpenTK.Mathematics;
+using SandMan.game.world;
 using SandMan.rendering;
 
 namespace SandMan.blocks;
@@ -37,6 +38,11 @@ public class Block
         if (x < 0) x = 0;
         if (y < 0) y = 0;
         return texture.GetPixel(x % texture.width, y % texture.height);
+    }
+
+    public virtual bool Update(int x, int y, BlockWorld world)
+    {
+        return false;
     }
 
 }

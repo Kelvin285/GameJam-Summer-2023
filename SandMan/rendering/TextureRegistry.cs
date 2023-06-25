@@ -10,6 +10,9 @@ public class TextureRegistry
     public static Texture PLAYER_LEG_UP;
     public static Texture PLAYER_LEG_DOWN;
     
+    public static Texture ENEMY;
+    public static Texture SHARK;
+    
 
     public static Texture AddTexture(string path)
     {
@@ -25,6 +28,9 @@ public class TextureRegistry
         PLAYER_LEG_UP = AddTexture("assets/textures/player/leg_up.png");
         PLAYER_LEG_DOWN = AddTexture("assets/textures/player/leg_down.png");
         PLAYER_CANNON = AddTexture("assets/textures/player/cannon.png");
+        
+        ENEMY = AddTexture("assets/textures/enemy/enemy.png");
+        SHARK = AddTexture("assets/textures/enemy/shark.png");
     }
 
     public static void Dispose()
