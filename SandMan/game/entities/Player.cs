@@ -87,11 +87,13 @@ public class Player : Entity
             int leftYBoost = 0, rightYBoost = 0;
             if (world.GetBlock(mousePos.X - 15, mousePos.Y + 5).id == 1) leftYBoost = 5;
             if (world.GetBlock(mousePos.X + 15, mousePos.Y + 5).id == 1) rightYBoost = 5;
-            world.CreateChunkEntity(mousePos + new Vector2i(0, -7), 16, mousePos + new Vector2(0, 16), new Vector2(-20, 35), true);
-            world.CreateChunkEntity(mousePos + new Vector2i(-5, -3), 16, mousePos + new Vector2(0, 16), new Vector2(20, 35), true);
-            world.CreateChunkEntity(mousePos + new Vector2i(5, -3), 16, mousePos + new Vector2(0, 16), new Vector2(0, 35), true);
-            world.CreateChunkEntity(mousePos + new Vector2i(-15, leftYBoost), 16, mousePos + new Vector2(-15, 16), new Vector2(-25,35), true);
-            world.CreateChunkEntity(mousePos + new Vector2i(15, rightYBoost), 16, mousePos + new Vector2(15, 16), new Vector2(25, 35), true);
+            world.CreateParticleEntity(mousePos, TextureRegistry.EXPLOSION, 5, 5, 3f, 3, 10f, 5f, 0.2f, 150f);
+            world.CreateChunkEntity(mousePos + new Vector2i(0, -7), 16, mousePos + new Vector2(0, 16), new Vector2(-15, 45), 5f, true);
+            world.CreateChunkEntity(mousePos + new Vector2i(-5, -3), 16, mousePos + new Vector2(0, 16), new Vector2(15, 45), 5f, true);
+            world.CreateChunkEntity(mousePos + new Vector2i(5, -3), 16, mousePos + new Vector2(0, 16), new Vector2(0, 45), 5f, true);
+            world.CreateChunkEntity(mousePos + new Vector2i(-15, leftYBoost), 16, mousePos + new Vector2(-15, 16), new Vector2(-35,45), 5f, true);
+            world.CreateChunkEntity(mousePos + new Vector2i(15, rightYBoost), 16, mousePos + new Vector2(15, 16), new Vector2(35, 45), 5f, true);
+            
         }
 
         position.X += motion.X * delta * 60.0f;

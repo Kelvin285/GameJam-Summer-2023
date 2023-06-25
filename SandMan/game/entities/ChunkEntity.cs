@@ -14,8 +14,13 @@ public class ChunkEntity : Entity
     public Texture texture;
     
     public int width, height;
-    public ChunkEntity(BlockWorld blockWorld, Vector2 position, Vector4[] colors, int width, int height) : base(blockWorld, position)
+
+    private float timer;
+    private float duration;
+    public ChunkEntity(BlockWorld blockWorld, Vector2 position, Vector4[] colors, int width, int height, float duration) : base(blockWorld, position)
     {
+        this.duration = duration;
+        
         this.width = width;
         this.height = height;
         texture = new Texture(width, height, Vector4.Zero);
@@ -64,6 +69,12 @@ public class ChunkEntity : Entity
         base.Update();
         
         position = new Vector2(body.GetPosition().X, body.GetPosition().Y);
+
+        timer += Game.INSTANCE.Delta;
+        if (timer > duration)
+        {
+            health = 0;
+        }
     }
 
     public override void Dispose()

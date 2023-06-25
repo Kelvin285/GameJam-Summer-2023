@@ -12,6 +12,8 @@ public class TextureRegistry
     
     public static Texture ENEMY;
     public static Texture SHARK;
+
+    public static Texture EXPLOSION;
     
 
     public static Texture AddTexture(string path)
@@ -31,6 +33,8 @@ public class TextureRegistry
         
         ENEMY = AddTexture("assets/textures/enemy/enemy.png");
         SHARK = AddTexture("assets/textures/enemy/shark.png");
+
+        EXPLOSION = AddTexture("assets/textures/explosion/explosion.png");
     }
 
     public static void Dispose()

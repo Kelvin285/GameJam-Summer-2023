@@ -99,9 +99,9 @@ public class Chunk
         if (update_timer > 0)
         {
             int updates = 0;
-            for (int x = updateRect.x1; x <= updateRect.x2; x++)
+            for (int y = updateRect.y1; y <= updateRect.y2; y++)
             {
-                for (int y = updateRect.y1; y <= updateRect.y2; y++)
+                for (int x = updateRect.x1; x <= updateRect.x2; x++)
                 {
                     var block = GetBlock(x, y);
                     if (block.Update(x + this.x * 128, y + this.y * 128, world))

@@ -10,6 +10,7 @@ public class Entity
 
     public BlockWorld world;
     public bool can_fall_out_of_world = false;
+    public int health = 100;
 
     public Entity(BlockWorld world, Vector2 position)
     {

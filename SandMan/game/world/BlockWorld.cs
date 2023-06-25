@@ -3,6 +3,7 @@ using DotnetNoise;
 using OpenTK.Mathematics;
 using SandMan.blocks;
 using SandMan.game.entities;
+using SandMan.rendering;
 
 namespace SandMan.game.world;
 
@@ -235,7 +236,7 @@ public class BlockWorld
         for (int i = 0; i < entities.Count; i++)
         {
             entities[i].Update();
-            if (entities[i].position.Y < 0 && entities[i].can_fall_out_of_world)
+            if (entities[i].position.Y < 0 && entities[i].can_fall_out_of_world || entities[i].health <= 0)
             {
                 entities[i].Dispose();
                 entities.RemoveAt(i);
@@ -268,7 +269,7 @@ public class BlockWorld
     }
 
     //create chunk entity
-    public void CreateChunkEntity(Vector2i searchPos, int searchSize, Vector2 position, Vector2 velocity, bool circle = false)
+    public void CreateChunkEntity(Vector2i searchPos, int searchSize, Vector2 position, Vector2 velocity, float duration, bool circle = false)
     {
         Vector4[] colors = new Vector4[searchSize * searchSize];
         bool empty = true;
@@ -338,10 +339,16 @@ public class BlockWorld
 
         if (!empty)
         {
-            ChunkEntity chunk = new ChunkEntity(this, position, real_colors, width, height);
+            ChunkEntity chunk = new ChunkEntity(this, position, real_colors, width, height, duration);
             chunk.body.SetLinearVelocity(new System.Numerics.Vector2(velocity.X, velocity.Y));
             entities.Add(chunk);
         }
+    }
+    
+    public void CreateParticleEntity(Vector2 position, Texture texture, int width, int height, float duration, int count, float posOffset, float sizeOffset, float growthDuration, float growthRate)
+    {
+        ParticleEntity explosion = new ParticleEntity(this, position, texture, width, height, duration, count, posOffset, sizeOffset, growthDuration, growthRate);
+        entities.Add(explosion);
     }
 
     public void Dispose()

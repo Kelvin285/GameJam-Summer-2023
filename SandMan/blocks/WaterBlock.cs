@@ -21,41 +21,35 @@ public class WaterBlock : Block
             world.SetBlock(x, y - 1, this);
             return true;
         }
-        else
-        {
-            int place = x;
 
-            void Search(int dir, int range = 5)
+        int placeX = x;
+        int placeY = y;
+
+        void Search(int dir, int range = 5)
+        {
+            for (int i = range; i >= 1; i--)
             {
-                for (int i = 1; i < range; i++)
+                int newX = x + i * dir;
+                if (world.GetBlock(newX, y) == BlockRegistry.air)
                 {
-                    if (world.GetBlock(x + i * dir, y) == BlockRegistry.air)
-                    {
-                        place = x + i * dir;
-                    }
-                    else
-                    {
-                        break;
-                    }
+                    placeX = newX;
+                    placeY = y;
+                    break;
                 }
             }
+        }
 
-            int dir = world.random.Next(2) * 2 - 1;
-            Search(dir);
-            if (place == x)
-            {
-                Search(-dir);
-            }
+        int dir = world.random.Next(2) * 2 - 1;
+        Search(dir);
+        if (placeX == x)
+        {
+            Search(-dir);
+        }
 
-            if (place != x)
-            {
-                world.SetBlock(x, y, BlockRegistry.air);
-                world.SetBlock(place, y, this);
-                return true;
-            }
-            
-
-            
+        if (placeX != x)
+        {
+            world.SetBlock(x, y, BlockRegistry.air);
+            world.SetBlock(placeX, placeY, this);
         }
         return false;
     }
