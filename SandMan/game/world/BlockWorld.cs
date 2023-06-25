@@ -223,6 +223,10 @@ public class BlockWorld
         {
             for (int y = 0; y < searchSize; y++)
             {
+                if (!GetBlock(searchPos.X + x - searchSize / 2, searchPos.Y + y - searchSize / 2).can_break)
+                {
+                    continue;
+                }
                 colors[x + y * searchSize] = GetColor(searchPos.X + x - searchSize / 2, searchPos.Y + y - searchSize / 2);
                 SetBlock(searchPos.X + x - searchSize / 2, searchPos.Y + y - searchSize / 2, BlockRegistry.air);
                 if (colors[x + y * searchSize].W > 0)
@@ -245,6 +249,8 @@ public class BlockWorld
 
         int width = end_x - start_x;
         int height = end_y - start_y;
+
+        if (width <= 0 || height <= 0 || start_x < 0 || start_y < 0 || end_x <= 0 || end_y <= 0) return;
 
         Vector4[] real_colors = new Vector4[width * height];
         for (int x = start_x; x < end_x; x++)
