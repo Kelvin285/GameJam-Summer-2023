@@ -30,7 +30,6 @@ public class Texture
         GL.TexParameteri(TextureTarget.Texture2d, TextureParameterName.TextureMagFilter, (int)TextureMinFilter.Nearest);
         
         GL.TexImage2D(TextureTarget.Texture2d, 0, InternalFormat.Rgba32f, width, height, 0, PixelFormat.Rgba, PixelType.Float, pixels.ToArray());
-        GL.GenerateMipmap(TextureTarget.Texture2d);
     }
 
     public Texture(string path)
@@ -61,8 +60,7 @@ public class Texture
         
         GL.BindTexture(TextureTarget.Texture2d, texture);
         GL.TexImage2D(TextureTarget.Texture2d, 0, InternalFormat.Rgba32f, image.Width, image.Height, 0, PixelFormat.Rgba, PixelType.Float, pixels.ToArray());
-        GL.GenerateMipmap(TextureTarget.Texture2d);
-
+        
         image.Dispose();
     }
 

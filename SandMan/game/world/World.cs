@@ -15,7 +15,7 @@ public class World
     {
         noise = new FastNoise();
         
-        entities.Add(new Player());
+        entities.Add(new Player(this));
         
         GenerateLevel();
     }

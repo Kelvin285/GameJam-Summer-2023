@@ -1,9 +1,18 @@
+using OpenTK.Mathematics;
 using OpenTK.Windowing.GraphicsLibraryFramework;
+using SandMan.blocks;
+using SandMan.game.world;
 
 namespace SandMan.game.entities;
 
 public class Player : Entity
 {
+
+    public Player(World world) : base(world)
+    {
+        
+    }
+    
     public override void Update()
     {
         base.Update();
@@ -34,6 +43,11 @@ public class Player : Entity
         {
             position.Y -= delta * speed;
         }
+
+        Vector2i mousePos = Game.INSTANCE.camera.GetMousePositionInWorld();
+        bool mouse_press = Game.INSTANCE.IsMouseButtonDown(MouseButton.Button1);
+        
+        world.SetBlock(mousePos.X, mousePos.Y, BlockRegistry.air);
     }
 
     public override void Render()

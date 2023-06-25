@@ -15,7 +15,7 @@ public class Chunk
 
     public Chunk(int x, int y)
     {
-        chunkTexture = new Texture(128, 128, new Vector4(0f, 0f, 0f, 1f));
+        chunkTexture = new Texture(128, 128, new Vector4(0f, 0f, 0f, 0f));
         for (int i = 0; i < 128 * 128; i++)
         {
             blocks.Add(0);

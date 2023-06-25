@@ -57,7 +57,7 @@ public class Game : GameWindow
         GL.Viewport(0, 0, Size.X, Size.Y);
         
         GL.Clear(ClearBufferMask.ColorBufferBit);
-        GL.ClearColor(0, 0, 0, 0);
+        GL.ClearColor(0.75f, 0.9f, 1, 0);
 
         render_shader.Use();
         
