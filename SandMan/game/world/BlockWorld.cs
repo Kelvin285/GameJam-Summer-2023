@@ -210,15 +210,15 @@ public class BlockWorld
         Camera camera = Game.INSTANCE.camera;
         int cameraX = (int)MathF.Floor(camera.position.X/128);
         int cameraY = (int)MathF.Floor(camera.position.Y/128);
-
-        for (int i = 0; i < chunks.Length; i++)
-        {
-            chunks[i].Render();
-        }
-
+        
         for (int i = 0; i < entities.Count; i++)
         {
             entities[i].Render();
+        }
+        
+        for (int i = 0; i < chunks.Length; i++)
+        {
+            chunks[i].Render();
         }
     }
 
