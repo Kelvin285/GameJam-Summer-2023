@@ -49,7 +49,7 @@ public class Player : Entity
         //BlockWorld.SetBlock(mousePos.X, mousePos.Y, BlockRegistry.air);
         if (mouse_press)
         {
-            world.CreateChunkEntity(mousePos, 8, mousePos + new Vector2(0, 16));
+            world.CreateChunkEntity(mousePos, 32, mousePos + new Vector2(0, 16), true);
         }
     }
 

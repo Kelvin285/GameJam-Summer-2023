@@ -58,6 +58,8 @@ public class Chunk
             {
                 world.physicsWorld.DestroyBody(body);
             }
+
+            has_body = true;
             
             BodyDef def = new BodyDef();
             def.Position = new(x * 128, y * 128);

@@ -209,7 +209,7 @@ public class BlockWorld
         }
     }
 
-    public void CreateChunkEntity(Vector2i searchPos, int searchSize, Vector2 position)
+    public void CreateChunkEntity(Vector2i searchPos, int searchSize, Vector2 position, bool circle = false)
     {
         Vector4[] colors = new Vector4[searchSize * searchSize];
         bool empty = true;
@@ -223,6 +223,15 @@ public class BlockWorld
         {
             for (int y = 0; y < searchSize; y++)
             {
+                if (circle)
+                {
+                    float rad = MathF.Sqrt((x - searchSize / 2.0f) * (x - searchSize / 2.0f) +
+                                        (y - searchSize / 2.0f) * (y - searchSize / 2.0f));
+                    if (rad >= searchSize / 2.0f)
+                    {
+                        continue;
+                    }
+                }
                 if (!GetBlock(searchPos.X + x - searchSize / 2, searchPos.Y + y - searchSize / 2).can_break)
                 {
                     continue;
@@ -236,13 +245,20 @@ public class BlockWorld
                     {
                         start_x = x;
                     }
+                    else
+                    {
+                        start_x = (int)Math.Min(start_x, x);
+                    }
                     if (start_y == -1)
                     {
                         start_y = y;
+                    }else
+                    {
+                        start_y = (int)Math.Min(start_y, y);
                     }
 
-                    end_x = x;
-                    end_y = y;
+                    end_x = Math.Max(end_x, x);
+                    end_y = Math.Max(end_y, y);
                 }
             }
         }
