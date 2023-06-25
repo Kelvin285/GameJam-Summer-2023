@@ -209,6 +209,7 @@ public class BlockWorld
         }
     }
 
+    //create chunk entity
     public void CreateChunkEntity(Vector2i searchPos, int searchSize, Vector2 position, Vector2 velocity, bool circle = false)
     {
         Vector4[] colors = new Vector4[searchSize * searchSize];
