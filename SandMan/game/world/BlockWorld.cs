@@ -209,7 +209,7 @@ public class BlockWorld
         }
     }
 
-    public void CreateChunkEntity(Vector2i searchPos, int searchSize, Vector2 position, bool circle = false)
+    public void CreateChunkEntity(Vector2i searchPos, int searchSize, Vector2 position, Vector2 velocity, bool circle = false)
     {
         Vector4[] colors = new Vector4[searchSize * searchSize];
         bool empty = true;
@@ -280,6 +280,7 @@ public class BlockWorld
         if (!empty)
         {
             ChunkEntity chunk = new ChunkEntity(this, position, real_colors, width, height);
+            chunk.body.SetLinearVelocity(new System.Numerics.Vector2(velocity.X, velocity.Y));
             entities.Add(chunk);
         }
     }
