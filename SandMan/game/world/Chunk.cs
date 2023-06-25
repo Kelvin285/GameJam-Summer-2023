@@ -1,3 +1,5 @@
+using Box2DSharp.Collision.Shapes;
+using Box2DSharp.Dynamics;
 using OpenTK.Mathematics;
 using SandMan.blocks;
 using SandMan.rendering;
@@ -13,8 +15,14 @@ public class Chunk
 
     private bool updated = true;
 
-    public Chunk(int x, int y)
+    public Body body;
+    public bool has_body = false;
+
+    public BlockWorld world;
+
+    public Chunk(BlockWorld world, int x, int y)
     {
+        this.world = world;
         chunkTexture = new Texture(128, 128, new Vector4(0f, 0f, 0f, 0f));
         for (int i = 0; i < 128 * 128; i++)
         {
@@ -22,6 +30,9 @@ public class Chunk
         }
         this.x = x;
         this.y = y;
+        
+        
+        
     }
 
     public void SetBlock(int x, int y, Block block)
@@ -41,7 +52,42 @@ public class Chunk
         if (updated)
         {
             updated = false;
-            chunkTexture.Update(); 
+            chunkTexture.Update();
+
+            if (has_body)
+            {
+                world.physicsWorld.DestroyBody(body);
+            }
+            
+            BodyDef def = new BodyDef();
+            def.Position = new(x * 128, y * 128);
+            def.BodyType = BodyType.StaticBody;
+        
+            body = world.physicsWorld.CreateBody(def);
+            
+            for (int x = 0; x < 128; x++)
+            {
+                for (int y = 0; y < 128; y++)
+                {
+                    if (GetBlock(x, y).solid)
+                    {
+                        int X = x + this.x * 128;
+                        int Y = y + this.y * 128;
+                        if (world.GetBlock(X, Y + 1).solid == false || world.GetBlock(X, Y - 1).solid == false || world.GetBlock(X - 1, Y).solid == false || world.GetBlock(X + 1, Y).solid == false)
+                        {
+                            PolygonShape shape = new PolygonShape();
+                            shape.SetAsBox(0.5f, 0.5f, new(x + 0.5f, y + 0.5f), 0);
+                            shape.Validate();
+                            
+                            FixtureDef fixture = new FixtureDef();
+                            fixture.Density = 1.0f;
+                            fixture.Shape = shape;
+                            fixture.Friction = 0.3f;
+                            body.CreateFixture(fixture);
+                        }
+                    }
+                }
+            }
         }
         Game.DrawTexture(chunkTexture, new Vector2(x, y)*128, new Vector2(128, 128));
     }

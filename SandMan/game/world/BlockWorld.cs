@@ -1,21 +1,29 @@
+using Box2DSharp.Dynamics;
 using DotnetNoise;
+using OpenTK.Mathematics;
 using SandMan.blocks;
 using SandMan.game.entities;
 
 namespace SandMan.game.world;
 
-public class World
+public class BlockWorld
 {
     public Chunk[] chunks = new Chunk[64 * 64];
     private FastNoise noise;
 
+    public World physicsWorld;
+    
+
     public List<Entity> entities = new List<Entity>();
 
-    public World()
+    public BlockWorld()
     {
+        physicsWorld = new World();
+        physicsWorld.Gravity = new(0, -9.81f * 16.0f);
+        
         noise = new FastNoise();
         
-        entities.Add(new Player(this));
+        entities.Add(new Player(this, Vector2.Zero));
         
         GenerateLevel();
     }
@@ -26,7 +34,7 @@ public class World
         {
             for (int y = 0; y < 64; y++)
             {
-                chunks[x + y * 64] = new Chunk(x, y);
+                chunks[x + y * 64] = new Chunk(this, x, y);
             }
         }
         for (int x = 0; x < 128 * 64; x++)
@@ -158,13 +166,30 @@ public class World
         return chunks[chunkX + chunkY * 64].GetBlock(x, y);
         
     }
+    
+    public Vector4 GetColor(int x, int y)
+    {
+        x &= 8191;
+        y &= 8191;
+        int chunkX = x / 128;
+        int chunkY = y / 128;
+        return chunks[chunkX + chunkY * 64].GetBlock(x, y).GetColor(x, y);
+        
+    }
 
     public void Update()
     {
         for (int i = 0; i < entities.Count; i++)
         {
             entities[i].Update();
+            if (entities[i].position.Y < 0 && entities[i].can_fall_out_of_world)
+            {
+                entities[i].Dispose();
+                entities.RemoveAt(i);
+            }
         }
+
+        physicsWorld.Step(1.0f / 60.0f, 6, 2);
     }
     
     public void Render()
@@ -184,12 +209,67 @@ public class World
         }
     }
 
+    public void CreateChunkEntity(Vector2i searchPos, int searchSize, Vector2 position)
+    {
+        Vector4[] colors = new Vector4[searchSize * searchSize];
+        bool empty = true;
+
+        int start_x = -1;
+        int start_y = -1;
+        int end_x = -1;
+        int end_y = -1;
+            
+        for (int x = 0; x < searchSize; x++)
+        {
+            for (int y = 0; y < searchSize; y++)
+            {
+                colors[x + y * searchSize] = GetColor(searchPos.X + x - searchSize / 2, searchPos.Y + y - searchSize / 2);
+                SetBlock(searchPos.X + x - searchSize / 2, searchPos.Y + y - searchSize / 2, BlockRegistry.air);
+                if (colors[x + y * searchSize].W > 0)
+                {
+                    empty = false;
+                    if (start_x == -1)
+                    {
+                        start_x = x;
+                    }
+                    if (start_y == -1)
+                    {
+                        start_y = y;
+                    }
+
+                    end_x = x;
+                    end_y = y;
+                }
+            }
+        }
+
+        int width = end_x - start_x;
+        int height = end_y - start_y;
+
+        Vector4[] real_colors = new Vector4[width * height];
+        for (int x = start_x; x < end_x; x++)
+        {
+            for (int y = start_y; y < end_y; y++)
+            {
+                real_colors[x - start_x + (y - start_y) * width] = colors[x + y * searchSize];
+            }
+        }
+
+        if (!empty)
+        {
+            ChunkEntity chunk = new ChunkEntity(this, position, real_colors, width, height);
+            entities.Add(chunk);
+        }
+    }
+
     public void Dispose()
     {
         foreach (Chunk chunk in chunks)
         {
             chunk.chunkTexture.Dispose();
         }
+
+        physicsWorld.Dispose();
     }
     
 }

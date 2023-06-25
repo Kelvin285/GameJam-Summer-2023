@@ -7,8 +7,7 @@ namespace SandMan.game.entities;
 
 public class Player : Entity
 {
-
-    public Player(World world) : base(world)
+    public Player(BlockWorld blockWorld, Vector2 position) : base(blockWorld, position)
     {
         
     }
@@ -45,9 +44,13 @@ public class Player : Entity
         }
 
         Vector2i mousePos = Game.INSTANCE.camera.GetMousePositionInWorld();
-        bool mouse_press = Game.INSTANCE.IsMouseButtonDown(MouseButton.Button1);
+        bool mouse_press = Game.INSTANCE.IsMouseButtonPressed(MouseButton.Button1);
         
-        world.SetBlock(mousePos.X, mousePos.Y, BlockRegistry.air);
+        //BlockWorld.SetBlock(mousePos.X, mousePos.Y, BlockRegistry.air);
+        if (mouse_press)
+        {
+            world.CreateChunkEntity(mousePos, 32, mousePos + new Vector2(0, 16));
+        }
     }
 
     public override void Render()

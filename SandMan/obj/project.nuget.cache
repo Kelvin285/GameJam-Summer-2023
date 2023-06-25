@@ -1,10 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "k+seKF80Yyf696j5ZbWgNbik0qXgjtRHldnnTzIB8u9Pcs7sGnb+C0JRKZSNRG37GKXtPaUnA5XBBnmE0fF2fQ==",
+  "dgSpecHash": "74EDD4V5cZvYfq2crNyeKuUg9K6r5nhm5cFIbQF/4BAfI6rEJPtCWvxLGczFbJnanVlrNumw6/enB+itBiNXog==",
   "success": true,
   "projectFilePath": "/home/kevin/Desktop/coding/voxel engine/SandMan/SandMan/SandMan.csproj",
   "expectedPackageFiles": [
-    "/home/kevin/.nuget/packages/box2d/2.3.0/box2d.2.3.0.nupkg.sha512",
+    "/home/kevin/.nuget/packages/box2dsharp/0.6.0/box2dsharp.0.6.0.nupkg.sha512",
     "/home/kevin/.nuget/packages/dotnetnoise/1.0.0/dotnetnoise.1.0.0.nupkg.sha512",
     "/home/kevin/.nuget/packages/opentk/5.0.0-pre.8/opentk.5.0.0-pre.8.nupkg.sha512",
     "/home/kevin/.nuget/packages/opentk.compute/5.0.0-pre.8/opentk.compute.5.0.0-pre.8.nupkg.sha512",
@@ -18,6 +18,8 @@
     "/home/kevin/.nuget/packages/opentk.windowing.desktop/5.0.0-pre.8/opentk.windowing.desktop.5.0.0-pre.8.nupkg.sha512",
     "/home/kevin/.nuget/packages/opentk.windowing.graphicslibraryframework/5.0.0-pre.8/opentk.windowing.graphicslibraryframework.5.0.0-pre.8.nupkg.sha512",
     "/home/kevin/.nuget/packages/sixlabors.imagesharp/3.0.1/sixlabors.imagesharp.3.0.1.nupkg.sha512",
+    "/home/kevin/.nuget/packages/system.memory/4.5.3/system.memory.4.5.3.nupkg.sha512",
+    "/home/kevin/.nuget/packages/system.numerics.vectors/4.5.0/system.numerics.vectors.4.5.0.nupkg.sha512",
     "/home/kevin/.nuget/packages/system.runtime.compilerservices.unsafe/5.0.0/system.runtime.compilerservices.unsafe.5.0.0.nupkg.sha512"
   ],
   "logs": []

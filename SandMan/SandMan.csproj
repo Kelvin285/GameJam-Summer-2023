@@ -9,7 +9,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="Box2D" Version="2.3.0" />
+      <PackageReference Include="Box2DSharp" Version="0.6.0" />
       <PackageReference Include="DotnetNoise" Version="1.0.0" />
       <PackageReference Include="OpenTK" Version="5.0.0-pre.8" />
       <PackageReference Include="SixLabors.ImageSharp" Version="3.0.1" />

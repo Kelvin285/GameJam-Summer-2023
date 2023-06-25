@@ -23,7 +23,7 @@ public class Game : GameWindow
 
     public static Game INSTANCE;
 
-    private World world;
+    private BlockWorld _blockWorld;
     
     public Game(GameWindowSettings gameWindowSettings, NativeWindowSettings nativeWindowSettings) : base(gameWindowSettings, nativeWindowSettings)
     {
@@ -38,7 +38,7 @@ public class Game : GameWindow
 
     public void Init()
     {
-        world = new World();
+        _blockWorld = new BlockWorld();
         
         render_shader = new Shader("assets/shaders/render_vert.glsl", "assets/shaders/render_frag.glsl");
 
@@ -66,7 +66,7 @@ public class Game : GameWindow
         
         //Render Functions Go Here
         
-        world.Render();
+        _blockWorld.Render();
         //player.render();
 
         SwapBuffers();
@@ -88,7 +88,7 @@ public class Game : GameWindow
     protected override void OnUpdateFrame(FrameEventArgs args)
     {
         base.OnUpdateFrame(args);
-        world.Update();
+        _blockWorld.Update();
     }
 
     protected override void Dispose(bool disposing)
@@ -97,7 +97,7 @@ public class Game : GameWindow
         
         
         render_shader.Dispose();
-        world.Dispose();
+        _blockWorld.Dispose();
         
         GL.DeleteVertexArray(vao);
         texture.Dispose();

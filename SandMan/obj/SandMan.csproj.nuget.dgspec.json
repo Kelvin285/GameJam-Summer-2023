@@ -38,9 +38,9 @@
         "net7.0": {
           "targetAlias": "net7.0",
           "dependencies": {
-            "Box2D": {
+            "Box2DSharp": {
               "target": "Package",
-              "version": "[2.3.0, )"
+              "version": "[0.6.0, )"
             },
             "DotnetNoise": {
               "target": "Package",

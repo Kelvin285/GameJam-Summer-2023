@@ -62,3 +62,4 @@
 /home/boole/Documents/projects/games/GameJam-Summer-2023/SandMan/obj/Debug/net7.0/ref/SandMan.dll
 /home/boole/Documents/projects/games/GameJam-Summer-2023/SandMan/bin/Debug/net7.0/DotnetNoise.dll
 /home/kevin/Desktop/coding/voxel engine/SandMan/SandMan/bin/Debug/net7.0/DotnetNoise.dll
+/home/kevin/Desktop/coding/voxel engine/SandMan/SandMan/bin/Debug/net7.0/Box2DSharp.dll
