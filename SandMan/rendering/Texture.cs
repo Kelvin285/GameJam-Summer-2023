@@ -25,6 +25,10 @@ public class Texture
         texture = GL.GenTexture();
         
         GL.BindTexture(TextureTarget.Texture2d, texture);
+        
+        GL.TexParameteri(TextureTarget.Texture2d, TextureParameterName.TextureMinFilter, (int)TextureMinFilter.Nearest);
+        GL.TexParameteri(TextureTarget.Texture2d, TextureParameterName.TextureMagFilter, (int)TextureMinFilter.Nearest);
+        
         GL.TexImage2D(TextureTarget.Texture2d, 0, InternalFormat.Rgba32f, width, height, 0, PixelFormat.Rgba, PixelType.Float, pixels.ToArray());
         GL.GenerateMipmap(TextureTarget.Texture2d);
     }

@@ -2,7 +2,7 @@ using OpenTK.Mathematics;
 using SandMan.blocks;
 using SandMan.rendering;
 
-namespace SandMan.game;
+namespace SandMan.game.world;
 
 public class Chunk
 {
@@ -27,13 +27,13 @@ public class Chunk
     public void SetBlock(int x, int y, Block block)
     {
         updated = true;
-        blocks[x + y * 128] = block.id;
-        chunkTexture.SetPixel(x, y, block.color);
+        blocks[(x & 127) + (y & 127) * 128] = block.id;
+        chunkTexture.SetPixel(x & 127, y & 127, block.GetColor(x, y));
     }
     
     public Block GetBlock(int x, int y)
     {
-        return BlockRegistry.blocks[blocks[x + y * 128]];
+        return BlockRegistry.blocks[blocks[(x & 127) + (y & 127) * 128]];
     }
 
     public void Render()

@@ -4,12 +4,16 @@ using OpenTK.Mathematics;
 using OpenTK.Windowing.Common;
 using OpenTK.Windowing.Desktop;
 using SandMan.game;
+using SandMan.game.world;
 using SandMan.rendering;
 
 namespace SandMan;
 
 public class Game : GameWindow
 {
+    public float Delta => MathHelper.Clamp((float)UpdateTime, 1.0f / 60.0f, 1.0f);
+    
+    
     public VertexArrayHandle vao;
     public Shader render_shader;
 
@@ -84,6 +88,7 @@ public class Game : GameWindow
     protected override void OnUpdateFrame(FrameEventArgs args)
     {
         base.OnUpdateFrame(args);
+        world.Update();
     }
 
     protected override void Dispose(bool disposing)
@@ -97,4 +102,5 @@ public class Game : GameWindow
         GL.DeleteVertexArray(vao);
         texture.Dispose();
     }
+
 }

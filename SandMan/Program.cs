@@ -2,5 +2,10 @@
 using OpenTK.Windowing.Desktop;
 using SandMan;
 
-Game game = new(GameWindowSettings.Default, NativeWindowSettings.Default);
+var gameSettings = GameWindowSettings.Default;
+var nativeSettings = NativeWindowSettings.Default;
+
+gameSettings.UpdateFrequency = 60;
+
+Game game = new(gameSettings, nativeSettings);
 game.Run();

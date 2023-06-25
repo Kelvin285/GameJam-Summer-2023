@@ -10,6 +10,6 @@ public class Camera
 
     public void Update(Vector2i size)
     {
-        projection = Matrix4.CreateOrthographic(size.X, size.Y, 0, 1);
+        projection = Matrix4.CreateOrthographic(size.X / 2.0f, size.Y / 2.0f, 0, 1);
     }
 }
