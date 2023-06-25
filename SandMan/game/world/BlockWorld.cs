@@ -12,8 +12,9 @@ public class BlockWorld
     private FastNoise noise;
 
     public World physicsWorld;
-    
 
+
+    public Player player;
     public List<Entity> entities = new List<Entity>();
 
     public BlockWorld()
@@ -22,8 +23,12 @@ public class BlockWorld
         physicsWorld.Gravity = new(0, -9.81f * 16.0f);
         
         noise = new FastNoise();
+
+        player = new Player(this, Vector2.Zero);
+
+        player.position.X = 4096;
         
-        entities.Add(new Player(this, Vector2.Zero));
+        entities.Add(player);
         
         GenerateLevel();
     }
@@ -37,6 +42,7 @@ public class BlockWorld
                 chunks[x + y * 64] = new Chunk(this, x, y);
             }
         }
+        
         for (int x = 0; x < 128 * 64; x++)
         {
             float progress = x / (128 * 64.0f);
@@ -61,9 +67,16 @@ public class BlockWorld
             
             for (int y = 0; y < 128 * 64; y++)
             {
-                if (y < height)
+                if (y < (int)height)
                 {
                     SetBlock(x, y, BlockRegistry.sand);
+                    if (x == 4096)
+                    {
+                        if (y == (int)height - 1)
+                        {
+                            player.position.Y = y + 128;
+                        }
+                    }
                 }
             }
         }

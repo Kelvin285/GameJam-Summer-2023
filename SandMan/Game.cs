@@ -11,7 +11,7 @@ namespace SandMan;
 
 public class Game : GameWindow
 {
-    public float Delta => MathHelper.Clamp((float)UpdateTime, 1.0f / 60.0f, 1.0f);
+    public float Delta => (float)RenderTime;
     
     
     public VertexArrayHandle vao;
@@ -38,6 +38,7 @@ public class Game : GameWindow
 
     public void Init()
     {
+        TextureRegistry.RegisterTextures();
         _blockWorld = new BlockWorld();
         
         render_shader = new Shader("assets/shaders/render_vert.glsl", "assets/shaders/render_frag.glsl");
@@ -65,9 +66,8 @@ public class Game : GameWindow
         render_shader.SetUniform("projection", camera.projection);
         
         //Render Functions Go Here
-        
+        render_shader.SetUniform("tex", 0);
         _blockWorld.Render();
-        //player.render();
 
         SwapBuffers();
 
@@ -101,6 +101,7 @@ public class Game : GameWindow
         
         GL.DeleteVertexArray(vao);
         texture.Dispose();
+        TextureRegistry.Dispose();
     }
 
 }

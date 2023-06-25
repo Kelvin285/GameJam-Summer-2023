@@ -574,19 +574,19 @@
     ]
   },
   "packageFolders": {
-    "/home/boole/.nuget/packages/": {}
+    "/home/kevin/.nuget/packages/": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/home/boole/Documents/projects/games/GameJam-Summer-2023/SandMan/SandMan.csproj",
+      "projectUniqueName": "/home/kevin/Desktop/coding/voxel engine/SandMan/SandMan/SandMan.csproj",
       "projectName": "SandMan",
-      "projectPath": "/home/boole/Documents/projects/games/GameJam-Summer-2023/SandMan/SandMan.csproj",
-      "packagesPath": "/home/boole/.nuget/packages/",
-      "outputPath": "/home/boole/Documents/projects/games/GameJam-Summer-2023/SandMan/obj/",
+      "projectPath": "/home/kevin/Desktop/coding/voxel engine/SandMan/SandMan/SandMan.csproj",
+      "packagesPath": "/home/kevin/.nuget/packages/",
+      "outputPath": "/home/kevin/Desktop/coding/voxel engine/SandMan/SandMan/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "/home/boole/.nuget/NuGet/NuGet.Config"
+        "/home/kevin/.nuget/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net7.0"
@@ -638,18 +638,12 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
-        "downloadDependencies": [
-          {
-            "name": "Microsoft.AspNetCore.App.Ref",
-            "version": "[7.0.7, 7.0.7]"
-          }
-        ],
         "frameworkReferences": {
           "Microsoft.NETCore.App": {
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/7.0.107/RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "/home/kevin/.dotnet/sdk/7.0.302/RuntimeIdentifierGraph.json"
       }
     }
   }
